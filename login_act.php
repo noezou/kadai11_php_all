@@ -4,12 +4,12 @@ session_start();
 $lid = $_POST['lid'];
 $lpw = $_POST['lpw'];
 
-require_once 'funcs.php';
-sschk();
+require_once('funcs.php');
+// sschk();
 
 $pdo = db_conn();
 
-// usersに、IDとPWがあるか確認する。
+// usersに、登録があるか確認する。
 // $stmt = $pdo->prepare('SELECT * FROM users where lid = :lid AND lpw = :lpw;');
 $stmt = $pdo->prepare('SELECT * FROM users where lid = :lid AND life_flg = 0');
 $stmt->bindValue(':lid', $lid, PDO::PARAM_STR);
@@ -26,17 +26,18 @@ $val = $stmt->fetch(); //1レコードだけ取得する方法
 // $count = $stmt->fetchColumn(); //SELECT COUNT(*)で使用可能(件数取得)
 
 // 入力したPasswordと暗号化されたPasswordを比較する。　戻り値：true,false
-$pw = password_verify($lpw,$val["lpw"]); // $lpw = password_hash($lpw)
+$pw = password_verify($lpw,$val['lpw']);
 if($pw){
     //Login成功時 該当レコードがあればSESSIONに値を代入
     $_SESSION['chk_ssid'] = session_id();
+    $_SESSION['user_id'] = $val['lid'];
     $_SESSION['kanri_flg'] = $val['kanri_flg'];
     $_SESSION['name'] = $val['name'];
     echo 'ログイン認証に成功しました';
-    redirect('select.php');
+    redirect('index.php');
 }else{
     //Login失敗時(Logout経由)
     echo 'ログイン認証に失敗しました';
-    redirect('login.php');
+    redirect('logout.php');
 }
 ?>

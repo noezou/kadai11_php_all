@@ -3,7 +3,7 @@ session_start();
 
 $id = $_GET['id']; //?id~**を受け取る
 
-require_once 'funcs.php';
+require_once('funcs.php');
 sschk();
 $pdo = db_conn();
 

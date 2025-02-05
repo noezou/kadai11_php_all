@@ -3,14 +3,12 @@
 session_start();
 
 // 1. ログインチェック処理！
-// 以下、セッションID持ってたら、ok
+// セッションID持ってたら、ok
 // 持ってなければ、閲覧できない処理にする。
-
 // 関数化して、他ページにも流用する
+require_once('funcs.php');
+sschk();
 
-
-require_once 'funcs.php';
-// sschk();
 
 // 1.DB接続する
 $pdo = db_conn();
@@ -28,6 +26,7 @@ $status = $stmt->execute();
 
 // 3.データ表示
 $view = '';
+
 if (!$status) {
     sql_error($stmt);
 } else {
@@ -47,7 +46,6 @@ if (!$status) {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ja">

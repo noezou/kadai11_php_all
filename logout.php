@@ -1,7 +1,7 @@
 <?php
 //必ずsession_startは最初に記述
 session_start();
-require_once 'funcs.php';
+require_once('funcs.php');
 sschk();
 
 //SESSIONを初期化（空っぽにする）
@@ -16,5 +16,5 @@ if (isset($_COOKIE[session_name()])) { //session_name()は、セッションID�
 session_destroy();
 
 //処理後、index.phpへリダイレクト
-header("Location: login.php");
+header('Location: index.php');
 exit();

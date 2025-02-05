@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-require_once 'funcs.php';
-sschk();
 
 //1. データ取得
 $id     = $_POST['id'];
@@ -26,6 +24,8 @@ if (isset($_FILES['new_image'])){
 
 //2. DB接続します
 
+require_once('funcs.php');
+sschk();
 $pdo = db_conn();
 
 //３．登録SQL更新
