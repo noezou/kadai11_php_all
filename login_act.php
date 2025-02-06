@@ -4,6 +4,7 @@ session_start();
 $lid = $_POST['lid'];
 $lpw = $_POST['lpw'];
 
+
 require_once('funcs.php');
 // sschk();
 
@@ -25,12 +26,20 @@ if($status === false) {
 $val = $stmt->fetch(); //1レコードだけ取得する方法
 // $count = $stmt->fetchColumn(); //SELECT COUNT(*)で使用可能(件数取得)
 
+// echo '<pre>';
+// var_dump($id);
+// var_dump($lid);
+// var_dump($val['lid']);
+// var_dump($val['id']);
+// echo '</pre>';
+// exit;
+
 // 入力したPasswordと暗号化されたPasswordを比較する。　戻り値：true,false
 $pw = password_verify($lpw,$val['lpw']);
 if($pw){
     //Login成功時 該当レコードがあればSESSIONに値を代入
     $_SESSION['chk_ssid'] = session_id();
-    $_SESSION['user_id'] = $val['lid'];
+    $_SESSION['user_id'] = $val['id']; //ユーザーID
     $_SESSION['kanri_flg'] = $val['kanri_flg'];
     $_SESSION['name'] = $val['name'];
     echo 'ログイン認証に成功しました';
